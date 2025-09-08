@@ -10,9 +10,6 @@ const KEY = "arrayItems"
 
 
 
-
-/*Codigo de prueba a ver si me deja hacer PR */
-
 document.addEventListener("DOMContentLoaded",()=>{
 
     mostrarElementos()
@@ -28,6 +25,17 @@ contenedor.appendChild(crearLi(newValue));
     })
 
 btnEliminar.addEventListener("click",()=>{
+    btnAgregar.addEventListener("click",()=>{
+        
+        const newValue = inputValue.value;
+        lista.push(newValue)
+        localStorage.setItem(KEY,JSON.stringify(lista));
+        
+        contenedor.appendChild(crearLi(newValue));
+
+    })
+
+    btnEliminar.addEventListener("click",()=>{
 
 
 
@@ -39,12 +47,13 @@ btnEliminar.addEventListener("click",()=>{
 
 function mostrarElementos(){
 
-let arrayValues = JSON.parse(localStorage.getItem(KEY)) || [];
-contenedor.replaceChildren();
-    
-arrayValues.forEach((element)=>{
 
-contenedor.appendChild(crearLi(element));
+    let arrayValues = JSON.parse(localStorage.getItem(KEY)) || [];
+    contenedor.replaceChildren();
+    
+        arrayValues.forEach((element)=>{
+
+            contenedor.appendChild(crearLi(element));
 
         })
 }
@@ -52,7 +61,8 @@ contenedor.appendChild(crearLi(element));
 
 function crearLi(elemento){
 
-const li = document.createElement("li");
-li.textContent = elemento; 
+    const li = document.createElement("li");
+    li.textContent = elemento; 
     return li;
 }
+})
