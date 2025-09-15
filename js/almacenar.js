@@ -8,43 +8,39 @@ const inputValue = document.getElementById("item");
 let lista = [];
 const KEY = "arrayItems"
 
-
-
-
-
+const resetArray = []
 
 document.addEventListener("DOMContentLoaded",()=>{
 
     mostrarElementos()
 
-btnAgregar.addEventListener("click",()=>{
+    btnAgregar.addEventListener("click",()=>{
         
-const newValue = inputValue.value;
-lista.push(newValue)
-localStorage.setItem(KEY,JSON.stringify(lista));
-        
-contenedor.appendChild(crearLi(newValue));
-
-    })
-
-btnEliminar.addEventListener("click",()=>{
-
-
+        let newValue = inputValue.value;
+        lista.push(newValue)
+        localStorage.setItem(KEY,JSON.stringify(lista));
+        contenedor.appendChild(crearLi(newValue));
+        inputValue.value = " "
 
     })
 
 
-})
+    btnEliminar.addEventListener("click",()=>{
 
+        contenedor.replaceChildren();
+        localStorage.removeItem(KEY)
+        lista = [];
+    })
 
 function mostrarElementos(){
 
-let arrayValues = JSON.parse(localStorage.getItem(KEY)) || [];
-contenedor.replaceChildren();
-    
-arrayValues.forEach((element)=>{
 
-contenedor.appendChild(crearLi(element));
+    lista = JSON.parse(localStorage.getItem(KEY)) || [];
+    
+    
+        lista.forEach((element)=>{
+
+            contenedor.appendChild(crearLi(element));
 
         })
 }
@@ -52,7 +48,8 @@ contenedor.appendChild(crearLi(element));
 
 function crearLi(elemento){
 
-const li = document.createElement("li");
-li.textContent = elemento; 
+    const li = document.createElement("li");
+    li.textContent = elemento; 
     return li;
 }
+})
